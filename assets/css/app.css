@@ -1,3 +1,21 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+.board{    
+  padding-bottom: 100%;    
+  width: 100%;    
+  margin: 1em 0;    
+}    
+
+.board button{
+  border: 10;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0 0 calc(100%/9) 0;
+  width: calc(100%/9);
+  position: relative;
+}
+    
+
