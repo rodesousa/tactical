@@ -3,11 +3,19 @@
 <div class="content">
   <div class="board">
     <%= for {value, index} <- Enum.with_index(@state.positions) do %>
-      <button phx-click="place" phx-value="<%= index %>" class="<%= value %>"></button>
+      <button phx-click="place" phx-value="<%= index %>" class="<%= HelloWeb.Character.get_color!(value) %>"></button>
     <% end %>
   </div>
   <div class="menu">
     <button phx-click="change" class="<%= @state.edit_case_color %>">Change team</button>
+    <br/>
     <button phx-click="enter" class="enter">Enter</button>
+    <%= if @state.show_character do %>
+      <div class="show_character">
+        name: <%= @state.show_character.name %>
+        <br/>
+        stamina: <%= @state.show_character.stamina %>
+      </div>
+    <% end %>
   </div>
 </div>

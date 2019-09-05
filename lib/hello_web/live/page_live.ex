@@ -13,7 +13,7 @@ defmodule HelloWeb.PageLive do
   def handle_event("place", index, %{assigns: assigns} = socket) do
     new_state =
       String.to_integer(index)
-      |> State.click(assigns.state)
+      |> State.click(%{assigns.state | show_character: nil})
 
     {:noreply, assign(socket, state: new_state)}
     # {:noreply, socket}

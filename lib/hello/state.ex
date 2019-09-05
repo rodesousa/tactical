@@ -1,10 +1,29 @@
 defmodule HelloWeb.State do
-  defstruct positions: Enum.map(1..81, fn _ -> nil end),
-            edit_case_color: "blue"
+  alias HelloWeb.Character
+
+  defstruct [
+    :show_character,
+    positions: Enum.map(1..81, fn _ -> nil end),
+    edit_case_color: "blue",
+    mode: "edition"
+  ]
+
+  def cell!(index, positions), do: Enum.at(positions, index)
 
   def click(index, %{positions: pos, edit_case_color: color} = state) do
-    new_pos = List.replace_at(pos, index, color)
-    %{state | positions: new_pos}
+    case state.mode do
+      "edition" ->
+        if character = cell!(index, pos) do
+          %{state | show_character: character}
+        else
+          new_pos = List.replace_at(pos, index, Character.warrior("Warrior", color))
+          # new_pos = List.replace_at(pos, index, color)
+          %{state | positions: new_pos}
+        end
+
+      _ ->
+        state
+    end
   end
 
   def changed_edit_case_color(%{edit_case_color: "blue"} = state),
@@ -34,6 +53,10 @@ defmodule HelloWeb.State do
         response
         |> List.replace_at(index, nil)
         |> List.replace_at(index + step, color)
+
+      if Enum.at(new_response, index + step) do
+        HelloWeb.Fight.fight()
+      end
 
       rec(tail, new_response)
     else
