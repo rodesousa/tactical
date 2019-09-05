@@ -8,7 +8,7 @@
   margin: 1em 0;    
 }    
 
-.board button{
+.board button {
   border: 10;
   display: block;
   float: left;
@@ -16,6 +16,22 @@
   padding: 0 0 calc(100%/9) 0;
   width: calc(100%/9);
   position: relative;
+  background: transparent;
 }
-    
 
+.menu {
+  width: 10%;
+  margin: 1em 5em;    
+}
+
+button.blue{
+  background: blue;
+}
+
+button.red{
+  background: red;
+}
+
+.content {
+  display: flex;
+}

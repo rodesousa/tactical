@@ -1,7 +1,12 @@
 <h1>Test combat</h1>
 
-<div class="board">
-  <%= for {value, index} <- Enum.with_index(@state.positions) do %>
+<div class="content">
+  <div class="board">
+    <%= for {value, index} <- Enum.with_index(@state.positions) do %>
       <button phx-click="place" phx-value="<%= index %>" class="<%= value %>"></button>
-  <% end %>
+    <% end %>
+  </div>
+  <div class="menu">
+    <button phx-click="change" class="<%= @state.edit_case_color %>">Change team</button>
+  </div>
 </div>
