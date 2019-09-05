@@ -17,7 +17,7 @@ defmodule HelloWeb.State do
     filter =
       state.positions
       |> Enum.with_index()
-      |> Enum.filter(fn {x, _} -> x == "blue" end)
+      |> Enum.filter(fn {x, _} -> x != nil end)
       |> rec(state.positions)
 
     %{state | positions: filter}
@@ -27,11 +27,13 @@ defmodule HelloWeb.State do
   def rec([], response), do: response
 
   def rec([{color, index} | tail], response) do
-    if progress_blue?(index, response) do
+    step = if color == "blue", do: 9, else: -9
+
+    if progress?(index, response, step) do
       new_response =
         response
         |> List.replace_at(index, nil)
-        |> List.replace_at(index + 9, color)
+        |> List.replace_at(index + step, color)
 
       rec(tail, new_response)
     else
@@ -39,12 +41,12 @@ defmodule HelloWeb.State do
     end
   end
 
-  def progress_blue?(index, state) do
+  def progress?(index, state, step) do
     cond do
-      index + 9 > 81 ->
+      index + step > 81 || index + step < 0 ->
         false
 
-      Enum.at(state, index + 9) ->
+      Enum.at(state, index + step) ->
         false
 
       true ->
