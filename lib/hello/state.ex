@@ -8,16 +8,13 @@ defmodule HelloWeb.State do
     mode: "edition"
   ]
 
-  def cell!(index, positions), do: Enum.at(positions, index)
-
   def click(index, %{positions: pos, edit_case_color: color} = state) do
     case state.mode do
       "edition" ->
-        if character = cell!(index, pos) do
+        if character = Enum.at(pos, index) do
           %{state | show_character: character}
         else
           new_pos = List.replace_at(pos, index, Character.warrior("Warrior", color))
-          # new_pos = List.replace_at(pos, index, color)
           %{state | positions: new_pos}
         end
 
@@ -45,14 +42,14 @@ defmodule HelloWeb.State do
 
   def rec([], response), do: response
 
-  def rec([{color, index} | tail], response) do
-    step = if color == "blue", do: 9, else: -9
+  def rec([{character, index} | tail], response) do
+    step = if character.color == "blue", do: 9, else: -9
 
     if progress?(index, response, step) do
       new_response =
         response
         |> List.replace_at(index, nil)
-        |> List.replace_at(index + step, color)
+        |> List.replace_at(index + step, character)
 
       if Enum.at(new_response, index + step) do
         HelloWeb.Fight.fight()
