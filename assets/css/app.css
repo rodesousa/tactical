@@ -24,7 +24,7 @@
   margin: 1em 5em;    
 }
 
-button.blue{
+button.blue,.enter{
   background: blue;
 }
 

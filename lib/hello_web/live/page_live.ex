@@ -12,7 +12,7 @@ defmodule HelloWeb.PageLive do
 
   def handle_event("place", index, %{assigns: assigns} = socket) do
     new_state =
-      index
+      String.to_integer(index)
       |> State.click(assigns.state)
 
     {:noreply, assign(socket, state: new_state)}
@@ -21,6 +21,11 @@ defmodule HelloWeb.PageLive do
 
   def handle_event("change", index, %{assigns: assigns} = socket) do
     new_state = State.changed_edit_case_color(assigns.state)
+    {:noreply, assign(socket, state: new_state)}
+  end
+
+  def handle_event("enter", index, %{assigns: assigns} = socket) do
+    new_state = State.enter(assigns.state)
     {:noreply, assign(socket, state: new_state)}
   end
 end

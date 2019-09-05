@@ -53,7 +53,8 @@ config :hello, HelloWeb.Endpoint,
       ~r"priv/gettext/.*(po)$",
       ~r"lib/hello_web/{live,views}/.*(ex)$",
       ~r"lib/hello_web/templates/.*(eex)$",
-      ~r{lib/hello_web/live/.*(ex)$}
+      ~r{lib/hello_web/live/.*(ex)$},
+      ~r{lib/hello/.*(ex)$}
     ]
   ]
 
