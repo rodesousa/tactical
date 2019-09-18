@@ -45,19 +45,29 @@ defmodule HelloWeb.State do
   def rec([{character, index} | tail], response) do
     step = if character.color == "blue", do: 9, else: -9
 
-    if progress?(index, response, step) do
-      new_response =
-        response
-        |> List.replace_at(index, nil)
-        |> List.replace_at(index + step, character)
+    cond do
+      Enum.at(response, index + step) ->
+        {char_1, char_2} =
+          Enum.at(response, index + step)
+          |> HelloWeb.Fight.fight(Enum.at(response, index))
 
-      if Enum.at(new_response, index + step) do
-        HelloWeb.Fight.fight()
-      end
+        new_response =
+          response
+          |> List.replace(index + step, Enum.at(response, index + step))
+          |> List.replace(index + step, Enum.at(response, index))
 
-      rec(tail, new_response)
-    else
-      rec(tail, response)
+        rec(tail, new_response)
+
+      progress?(index, response, step) ->
+        new_response =
+          response
+          |> List.replace_at(index, nil)
+          |> List.replace_at(index + step, character)
+
+        rec(tail, new_response)
+
+      true ->
+        rec(tail, response)
     end
   end
 
