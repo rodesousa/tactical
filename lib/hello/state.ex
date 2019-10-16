@@ -8,6 +8,9 @@ defmodule HelloWeb.State do
     mode: "edition"
   ]
 
+  def start do
+  end
+
   def click(index, %{positions: pos, edit_case_color: color} = state) do
     case state.mode do
       "edition" ->
