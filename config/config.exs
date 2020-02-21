@@ -7,6 +7,14 @@
 # General application configuration
 use Mix.Config
 
+config :hello, Tactical.Repo,
+  database: "hello_repo",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"
+
+config :hello, ecto_repos: [Tactical.Repo]
+
 # Configures the endpoint
 config :hello, HelloWeb.Endpoint,
   url: [host: "localhost"],

@@ -9,9 +9,11 @@ defmodule Hello.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      HelloWeb.Endpoint
+      HelloWeb.Endpoint,
       # Starts a worker by calling: Hello.Worker.start_link(arg)
       # {Hello.Worker, arg},
+
+      Tactical.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
